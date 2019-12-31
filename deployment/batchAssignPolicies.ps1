@@ -1,16 +1,19 @@
-$policyObjs = ConvertFrom-Json -InputObject $env:POLICYDEFS
-$policyAssignmentRG = "$(resourceGroupName)$(Release.EnvironmentName)"
 $policyDefRootFolder = "$Env:ROOT_FOLDER/policydefinitions"
+$subscriptionId = "$Env:SUBSCRIPTION_ID"
+$releaseEnvironment = "$Env:RELEASE_ENVIRONMENT"
 
-Write-Host policyDefRootFolder: $policyObjs
 Write-Host policyDefRootFolder: $policyDefRootFolder
+Write-Host subscriptionId: $subscriptionId
+Write-Host releaseEnvironment: $releaseEnvironment
 
 foreach ($policyDefFolder in (Get-ChildItem -Path $policyDefRootFolder -Directory)) {
 
     Write-Host Processing folder: $policyDefFolder.Name
-    $selected = $policyObjs | Where-Object { $_.Name -eq $policyDefFolder.Name }
-    Write-Host Creating assignment for: $selectedObj
+    $policy = Get-AzPolicyDefinition -Name $policyDefFolder.Name
+    Write-Host Creating assignment for: $policy
 
-    #New-AzureRmPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $selected -Scope ((Get-AzureRmResourceGroup -Name $policyAssignmentRG).ResourceId) -PolicyParameter  "$($policyDefFolder.FullName)\values.$(Release.EnvironmentName).json"
+
+    New-AzPolicyAssignment -Name 'AuditStorageAccounts'-PolicyDefinition $Policy -Scope $rg.ResourceId
+    New-AzPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $policy -Scope $subscriptionId -PolicyParameter  "$($policyDefFolder.FullName)\values.($releaseEnvironment).json"
 
 }
