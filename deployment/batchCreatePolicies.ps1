@@ -1,5 +1,5 @@
-$policyDefRootFolder = "$(workingDirectory)/policydefinitions"
-$subscriptionName = "$(subscriptionName)"
+$policyDefRootFolder = "$Env:ROOT_FOLDER)/policydefinitions"
+$subscriptionName = "$Env:SUBSCRIPTION_ID)"
 
 class PolicyDef {
     [string]$PolicyName
