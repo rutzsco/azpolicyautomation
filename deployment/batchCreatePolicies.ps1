@@ -1,5 +1,8 @@
-$policyDefRootFolder = "$Env:ROOT_FOLDER)/policydefinitions"
-$subscriptionId = "$Env:SUBSCRIPTION_ID)"
+$policyDefRootFolder = "$Env:ROOT_FOLDER/policydefinitions"
+$subscriptionId = "$Env:SUBSCRIPTION_ID"
+
+Write-Verbose $policyDefRootFolder
+Write-Verbose $subscriptionId
 
 class PolicyDef {
     [string]$PolicyName
@@ -47,8 +50,7 @@ function Add-Policies {
     return $policyDefList
 }
 
-Write-Verbose $policyDefRootFolder
-Write-Verbose $subscriptionId
+
 
 #get list of policy folders
 $policies = Select-Policies -PolicyFolders (Get-ChildItem -Path $policyDefRootFolder -Directory)
