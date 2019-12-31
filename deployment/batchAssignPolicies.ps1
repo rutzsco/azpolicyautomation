@@ -11,11 +11,11 @@ foreach ($policyDefFolder in (Get-ChildItem -Path $policyDefRootFolder -Director
 
     Write-Host Processing folder: $policyDefFolder.Name
     $policy = Get-AzPolicyDefinition -Name $policyDefFolder.Name
-    $policyParamater = "$($policyDefFolder.FullName)\values.($releaseEnvironment).json"
+    $policyParamater = "$($policyDefFolder.FullName)\values.dev.json"
 
     Write-Host Creating assignment for: $policy
     Write-Host Creating assignment for: $policyParamater
 
     New-AzPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $policy -Scope $subscriptionId -PolicyParameter $policyParamater
-    
+
 }
