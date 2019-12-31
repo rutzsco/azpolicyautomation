@@ -16,6 +16,6 @@ foreach ($policyDefFolder in (Get-ChildItem -Path $policyDefRootFolder -Director
     Write-Host Creating assignment for: $policy
     Write-Host Creating assignment for: $policyParamater
 
-    New-AzPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $policy -Scope $subscriptionId -PolicyParameter $policyParamater
+    New-AzPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $policy -SubscriptionId $subscriptionId -PolicyParameter $policyParamater
 
 }
