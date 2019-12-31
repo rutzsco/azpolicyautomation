@@ -45,7 +45,7 @@ function Add-Policies {
     $policyDefList = @()
     foreach ($policy in $Policies) {
         Write-Host "Creating policy definition - " $policy.PolicyName
-        $policyDef = New-AzureRmPolicyDefinition -Name $policy.PolicyName -Policy $policy.PolicyRulePath -Parameter $policy.PolicyParamPath -SubscriptionId $subscriptionId -Metadata '{"category":"Pipeline"}'
+        $policyDef = New-AzPolicyDefinition -Name $policy.PolicyName -Policy $policy.PolicyRulePath -Parameter $policy.PolicyParamPath -SubscriptionId $subscriptionId -Metadata '{"category":"Pipeline"}'
         $policyDefList += $policyDef
     }
     return $policyDefList
