@@ -12,8 +12,5 @@ foreach ($policyDefFolder in (Get-ChildItem -Path $policyDefRootFolder -Director
     $policy = Get-AzPolicyDefinition -Name $policyDefFolder.Name
     Write-Host Creating assignment for: $policy
 
-
-    New-AzPolicyAssignment -Name 'AuditStorageAccounts'-PolicyDefinition $Policy -Scope $rg.ResourceId
     New-AzPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $policy -Scope $subscriptionId -PolicyParameter  "$($policyDefFolder.FullName)\values.($releaseEnvironment).json"
-
 }
