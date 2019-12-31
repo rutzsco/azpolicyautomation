@@ -1,4 +1,4 @@
-$policyDefRootFolder = "$(System.DefaultWorkingDirectory)/policies"
+$policyDefRootFolder = "$(System.DefaultWorkingDirectory)/policydefinitions"
 $subscriptionName = "$(subscriptionName)"
 
 class PolicyDef {
