@@ -1,8 +1,8 @@
 $policyDefRootFolder = "$Env:ROOT_FOLDER/policydefinitions"
 $subscriptionId = "$Env:SUBSCRIPTION_ID"
 
-Write-Verbose $policyDefRootFolder
-Write-Verbose $subscriptionId
+Write-Host policyDefRootFolder: $policyDefRootFolder
+Write-Host subscriptionId: $subscriptionId
 
 class PolicyDef {
     [string]$PolicyName
