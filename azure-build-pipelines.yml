@@ -4,13 +4,16 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  buildConfiguration: 'Release'
-
 steps:
 - task: PublishPipelineArtifact@1
-  displayName: 'Publish Pipeline Artifact'
+  displayName: 'Publish Policy Definitions Artifact'
   inputs:
     targetPath: policydefinitions/
     artifact: policydefinitions
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Deployment Artifacts'
+  inputs:
+    targetPath: deployment/
+    artifact: deployment
 
