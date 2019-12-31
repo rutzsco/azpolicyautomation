@@ -1,6 +1,9 @@
 $policyObjs = ConvertFrom-Json -InputObject $env:POLICYDEFS
 $policyAssignmentRG = "$(resourceGroupName)$(Release.EnvironmentName)"
-$policyDefRootFolder = "$(System.DefaultWorkingDirectory)/policies"
+$policyDefRootFolder = "$Env:ROOT_FOLDER/policydefinitions"
+
+Write-Host policyDefRootFolder: $policyObjs
+Write-Host policyDefRootFolder: $policyDefRootFolder
 
 foreach ($policyDefFolder in (Get-ChildItem -Path $policyDefRootFolder -Directory)) {
 
@@ -8,6 +11,6 @@ foreach ($policyDefFolder in (Get-ChildItem -Path $policyDefRootFolder -Director
     $selected = $policyObjs | Where-Object { $_.Name -eq $policyDefFolder.Name }
     Write-Host Creating assignment for: $selectedObj
 
-    New-AzureRmPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $selected -Scope ((Get-AzureRmResourceGroup -Name $policyAssignmentRG).ResourceId) -PolicyParameter  "$($policyDefFolder.FullName)\values.$(Release.EnvironmentName).json"
+    #New-AzureRmPolicyAssignment -Name $policyDefFolder.Name -PolicyDefinition $selected -Scope ((Get-AzureRmResourceGroup -Name $policyAssignmentRG).ResourceId) -PolicyParameter  "$($policyDefFolder.FullName)\values.$(Release.EnvironmentName).json"
 
 }
