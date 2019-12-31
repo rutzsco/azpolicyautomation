@@ -1,0 +1,16 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    targetPath: policydefinitions/
+    artifact: policydefinitions
+
