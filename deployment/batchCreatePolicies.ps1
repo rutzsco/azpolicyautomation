@@ -1,5 +1,5 @@
 $policyDefRootFolder = "$Env:ROOT_FOLDER)/policydefinitions"
-$subscriptionName = "$Env:SUBSCRIPTION_ID)"
+$subscriptionId = "$Env:SUBSCRIPTION_ID)"
 
 class PolicyDef {
     [string]$PolicyName
@@ -47,7 +47,6 @@ function Add-Policies {
     return $policyDefList
 }
 
-$subscriptionId = (Get-AzureRmSubscription -SubscriptionName $subscriptionName).Id
 Write-Verbose $policyDefRootFolder
 Write-Verbose $subscriptionId
 
