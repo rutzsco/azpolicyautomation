@@ -19,7 +19,7 @@ function Select-Policies {
         [System.IO.DirectoryInfo[]]$PolicyFolders
     )
 
-    Write-Verbose "Processing policies"
+    Write-Host "Processing policies"
     $policyList = @()
     foreach ($policyDefinition in $PolicyFolders) {
         $policy = New-Object -TypeName PolicyDef
@@ -41,9 +41,10 @@ function Add-Policies {
         [String]$subscriptionId
     )
 
-    Write-Verbose "Creating policy definitions"
+    Write-Host "Creating policy definitions"
     $policyDefList = @()
     foreach ($policy in $Policies) {
+        Write-Host "Creating policy definition - " $policy.PolicyName
         $policyDef = New-AzureRmPolicyDefinition -Name $policy.PolicyName -Policy $policy.PolicyRulePath -Parameter $policy.PolicyParamPath -SubscriptionId $subscriptionId -Metadata '{"category":"Pipeline"}'
         $policyDefList += $policyDef
     }
