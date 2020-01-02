@@ -10,13 +10,14 @@ pool:
 jobs:
 - job: Dev
   variables:
-    public: ${{ eq(variables['System.TeamProject'], 'public') }}
-    publicOrPR: ${{ or(eq(variables.public, 'true'), eq(variables['Build.Reason'], 'PullRequest')) }}
+    RELEASE_ENVIRONMENT: dev
+    ROOT_FOLDER: $(System.DefaultWorkingDirectory)/_Source
+    SUBSCRIPTION_ID: 164a84cf-b099-4567-a527-c2a8143a32c7
   steps:
-    - task: PowerShell@1
+    - powershell: |
+       Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
+   
       displayName: '1. Install Az Module'
-      inputs:
-        scriptName: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchAssignPolicies.ps1'
 
     - task: AzurePowerShell@4
       displayName: '2. Register-AzResourceProvider - Microsoft.PolicyInsights '
