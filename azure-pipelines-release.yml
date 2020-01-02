@@ -14,9 +14,9 @@ jobs:
     publicOrPR: ${{ or(eq(variables.public, 'true'), eq(variables['Build.Reason'], 'PullRequest')) }}
   steps:
     - task: PowerShell@1
-    displayName: '1. Install Az Module'
-    inputs:
-      scriptName: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchAssignPolicies.ps1'
+      displayName: '1. Install Az Module'
+      inputs:
+        scriptName: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchAssignPolicies.ps1'
 
     - task: AzurePowerShell@4
       displayName: '2. Register-AzResourceProvider - Microsoft.PolicyInsights '
