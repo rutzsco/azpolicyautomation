@@ -1,7 +1,7 @@
 resources:
   pipelines:
-  - pipeline: Build - Policy Definitions
-    source: Build
+  - pipeline: Build
+    source: Build - Policy Definitions
     trigger: true
 
 pool:
