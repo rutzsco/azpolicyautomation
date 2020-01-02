@@ -5,9 +5,12 @@ resources:
     trigger: true
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-2019'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- powershell: |
+   Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
+   
+  displayName: '1. Install Az Module'
+
 
