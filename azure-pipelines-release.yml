@@ -7,10 +7,37 @@ resources:
 pool:
   vmImage: 'windows-2019'
 
-steps:
-- powershell: |
-   Install-Module -Name Az -AllowClobber -Scope AllUsers -Force
-   
-  displayName: '1. Install Az Module'
+jobs:
+- job: Dev
+  variables:
+    public: ${{ eq(variables['System.TeamProject'], 'public') }}
+    publicOrPR: ${{ or(eq(variables.public, 'true'), eq(variables['Build.Reason'], 'PullRequest')) }}
+  steps:
+    - task: PowerShell@1
+    displayName: '1. Install Az Module'
+    inputs:
+      scriptName: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchAssignPolicies.ps1'
 
+    - task: AzurePowerShell@4
+      displayName: '2. Register-AzResourceProvider - Microsoft.PolicyInsights '
+      inputs:
+        azureSubscription: 'AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO'
+        ScriptType: InlineScript
+        Inline: |
+         Register-AzResourceProvider -ProviderNamespace 'Microsoft.PolicyInsights'
+     
+        azurePowerShellVersion: LatestVersion
 
+    - task: AzurePowerShell@4
+      displayName: '3. Deploy Policies'
+      inputs:
+        azureSubscription: 'AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO'
+        ScriptPath: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchCreatePolicies.ps1'
+        azurePowerShellVersion: LatestVersion
+
+    - task: AzurePowerShell@4
+      displayName: '4. Assign Policies'
+      inputs:
+        azureSubscription: 'AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO'
+        ScriptPath: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchAssignPolicies.ps1'
+        azurePowerShellVersion: LatestVersion
