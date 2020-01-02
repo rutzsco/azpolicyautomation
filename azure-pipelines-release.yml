@@ -11,7 +11,7 @@ jobs:
 - job: Dev
   variables:
     RELEASE_ENVIRONMENT: dev
-    ROOT_FOLDER: $(System.DefaultWorkingDirectory)/_Source
+    ROOT_FOLDER: $(System.DefaultWorkingDirectory)/Build
     SUBSCRIPTION_ID: 164a84cf-b099-4567-a527-c2a8143a32c7
   steps:
     - powershell: |
@@ -33,12 +33,12 @@ jobs:
       displayName: '3. Deploy Policies'
       inputs:
         azureSubscription: 'AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO'
-        ScriptPath: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchCreatePolicies.ps1'
+        ScriptPath: '$(System.DefaultWorkingDirectory)/Build/deployment/batchCreatePolicies.ps1'
         azurePowerShellVersion: LatestVersion
 
     - task: AzurePowerShell@4
       displayName: '4. Assign Policies'
       inputs:
         azureSubscription: 'AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO'
-        ScriptPath: '$(System.DefaultWorkingDirectory)/_Source/deployment/batchAssignPolicies.ps1'
+        ScriptPath: '$(System.DefaultWorkingDirectory)/Build/deployment/batchAssignPolicies.ps1'
         azurePowerShellVersion: LatestVersion
