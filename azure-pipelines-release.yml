@@ -14,7 +14,7 @@ jobs:
     ROOT_FOLDER: $(System.DefaultWorkingDirectory)/Build
     SUBSCRIPTION_ID: 164a84cf-b099-4567-a527-c2a8143a32c7
   steps:
-      - powershell: |
+    - powershell: |
        ls
    
       displayName: 'PowerShell Script'
