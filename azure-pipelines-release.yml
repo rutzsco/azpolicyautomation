@@ -11,13 +11,14 @@ jobs:
 - job: Dev
   variables:
     RELEASE_ENVIRONMENT: dev
-    ROOT_FOLDER: $(System.DefaultWorkingDirectory)/Build
+    ROOT_FOLDER: $(Pipeline.Workspace)/Build
     SUBSCRIPTION_ID: 164a84cf-b099-4567-a527-c2a8143a32c7
   steps:
     - task: DownloadPipelineArtifact@2
       displayName: 'Download Pipeline Artifact'
 
     - powershell: |
+       cd $(Pipeline.Workspace)
        ls
    
       displayName: 'PowerShell Script'
