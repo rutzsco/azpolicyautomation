@@ -11,18 +11,10 @@ jobs:
 - job: Dev
   variables:
     RELEASE_ENVIRONMENT: dev
-    ROOT_FOLDER: $(Pipeline.Workspace)
+    ROOT_FOLDER: $(System.DefaultWorkingDirectory)
     SUBSCRIPTION_ID: 164a84cf-b099-4567-a527-c2a8143a32c7
   steps:
-    - task: DownloadPipelineArtifact@2
-      displayName: 'Download Pipeline Artifact'
-      inputs:
-        buildType: specific
-        project: 'cb864827-3a97-463c-b8e1-3d2ecf54ea7e'
-        definition: 24
-
     - powershell: |
-       cd $(Pipeline.Workspace)
        ls
    
       displayName: 'PowerShell Script'
@@ -46,12 +38,12 @@ jobs:
       displayName: '3. Deploy Policies'
       inputs:
         azureSubscription: 'AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO'
-        ScriptPath: '$(Pipeline.Workspace)/deployment/batchCreatePolicies.ps1'
+        ScriptPath: '$(System.DefaultWorkingDirectory)/deployment/batchCreatePolicies.ps1'
         azurePowerShellVersion: LatestVersion
 
     - task: AzurePowerShell@4
       displayName: '4. Assign Policies'
       inputs:
         azureSubscription: 'AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO'
-        ScriptPath: '$(Pipeline.Workspace)/deployment/batchAssignPolicies.ps1'
+        ScriptPath: '$(System.DefaultWorkingDirectory)/deployment/batchAssignPolicies.ps1'
         azurePowerShellVersion: LatestVersion
