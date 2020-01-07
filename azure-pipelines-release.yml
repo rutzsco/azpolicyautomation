@@ -28,7 +28,7 @@ jobs:
     - task: AzurePowerShell@4
       displayName: '2. Register-AzResourceProvider - Microsoft.PolicyInsights '
       inputs:
-        azureSubscription: $(ADO_AZ_SUBSCRIPTION_NAME)
+        azureSubscription: AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO
         ScriptType: InlineScript
         Inline: |
          Register-AzResourceProvider -ProviderNamespace 'Microsoft.PolicyInsights'
@@ -38,13 +38,13 @@ jobs:
     - task: AzurePowerShell@4
       displayName: '3. Deploy Policies'
       inputs:
-        azureSubscription: $(ADO_AZ_SUBSCRIPTION_NAME)
+        azureSubscription: AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO
         ScriptPath: '$(System.DefaultWorkingDirectory)/deployment/batchCreatePolicies.ps1'
         azurePowerShellVersion: LatestVersion
 
     - task: AzurePowerShell@4
       displayName: '4. Assign Policies'
       inputs:
-        azureSubscription: $(ADO_AZ_SUBSCRIPTION_NAME)
+        azureSubscription: AZ-PIPELINES-DEPLOYMENT-TO-RUTZSCO-DEMO
         ScriptPath: '$(System.DefaultWorkingDirectory)/deployment/batchAssignPolicies.ps1'
         azurePowerShellVersion: LatestVersion
