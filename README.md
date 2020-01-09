@@ -28,11 +28,27 @@ The policy definitions are created using JSON, and stored in source control. Eac
 
 ### Deployment Scripts
 
-TBD
+Two Powershell scripts are responsible for deploying the policy definition and assigning it to a subscription.
 
+TODO: The use of Management Groups is prefered. Update for scripts MG support
+
+```
+|
+|- deployment
+|  |- batchAssignPolicies.ps1
+|  |- batchCreatePolicies.ps1
+|
+```
 ### Azure DevOps Pipelines
 
-TBD
+The execution of the deployment scripts should be orchestrated via Azure DevOps piplines. The following pipline definitions are responsible for defining the packaging and release processes.
+
+```
+|
+|- azure-pipelines-build.yml
+|- azure-pipelines-release.yml
+|
+```
 
 ## Reference
 
